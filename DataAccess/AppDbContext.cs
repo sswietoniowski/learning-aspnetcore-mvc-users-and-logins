@@ -1,6 +1,5 @@
 ﻿using learning_aspnetcore_mvc_users_and_logins.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace learning_aspnetcore_mvc_users_and_logins.DataAccess;
 
