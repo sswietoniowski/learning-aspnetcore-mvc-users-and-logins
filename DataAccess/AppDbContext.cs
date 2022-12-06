@@ -8,10 +8,6 @@ public class AppDbContext : DbContext
     public DbSet<Entities.Order> Orders { get; set; } = default!;
     public DbSet<Entities.User> Users { get; set; } = default!;
 
-    public AppDbContext() : base()
-    {
-    }
-
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
