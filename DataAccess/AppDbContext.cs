@@ -5,8 +5,8 @@ namespace learning_aspnetcore_mvc_users_and_logins.DataAccess;
 
 public class AppDbContext : DbContext
 {
-    public DbSet<Order> Orders  => Set<Order>();
     public DbSet<User> Users => Set<User>();
+    public DbSet<Order> Orders => Set<Order>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -16,11 +16,19 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+
+        // enums are stored as strings in the database, based on this article:
+        // https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions?tabs=data-annotations
+        modelBuilder
+            .Entity<User>()
+            .Property(u => u.Role)
+            .HasConversion<string>();
+
         modelBuilder.Entity<User>().HasData(
             new User
             {
                 Id = 1,
-                Login = "jkowalski",
+                Login = "jdoe",
                 Password = "ABC",
                 Salt = "DEF",
                 Role = Role.Customer
@@ -28,7 +36,7 @@ public class AppDbContext : DbContext
             new User
             {
                 Id = 2,
-                Login = "anowak",
+                Login = "afox",
                 Password = "ABC",
                 Salt = "DEF",
                 Role = Role.Employee
