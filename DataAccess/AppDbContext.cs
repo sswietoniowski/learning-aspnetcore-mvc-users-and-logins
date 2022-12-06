@@ -1,12 +1,13 @@
 ﻿using learning_aspnetcore_mvc_users_and_logins.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace learning_aspnetcore_mvc_users_and_logins.DataAccess;
 
 public class AppDbContext : DbContext
 {
-    public DbSet<Entities.Order> Orders { get; set; } = default!;
-    public DbSet<Entities.User> Users { get; set; } = default!;
+    public DbSet<Order> Orders  => Set<Order>();
+    public DbSet<User> Users => Set<User>();
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
