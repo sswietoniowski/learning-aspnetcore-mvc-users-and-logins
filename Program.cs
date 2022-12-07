@@ -1,4 +1,5 @@
 using learning_aspnetcore_mvc_users_and_logins.DataAccess;
+using learning_aspnetcore_mvc_users_and_logins.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,9 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IAccountManager, AccountManager>();
+
 builder.Services.ConfigureApplicationCookie(options =>
 {
-    options.LoginPath = $"/Account/Login";
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+
+    options.LoginPath = $"/Account/UserName";
     options.LogoutPath = $"/Account/Logout";
     options.AccessDeniedPath = $"/Account/AccessDenied";
 });

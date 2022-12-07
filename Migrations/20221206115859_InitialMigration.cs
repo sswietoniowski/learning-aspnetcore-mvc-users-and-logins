@@ -52,7 +52,7 @@ namespace learningaspnetcoremvcusersandlogins.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Login", "Password", "Role", "Salt" },
+                columns: new[] { "Id", "UserName", "Password", "Role", "Salt" },
                 values: new object[,]
                 {
                     { 1, "jkowalski", "ABC", 0, "DEF" },

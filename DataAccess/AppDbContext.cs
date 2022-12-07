@@ -28,7 +28,7 @@ public class AppDbContext : DbContext
             new User
             {
                 Id = 1,
-                Login = "jdoe",
+                UserName = "jdoe",
                 Password = "ABC",
                 Salt = "DEF",
                 Role = Role.Customer
@@ -36,7 +36,7 @@ public class AppDbContext : DbContext
             new User
             {
                 Id = 2,
-                Login = "afox",
+                UserName = "afox",
                 Password = "ABC",
                 Salt = "DEF",
                 Role = Role.Employee

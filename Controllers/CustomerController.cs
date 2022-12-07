@@ -22,7 +22,7 @@ public class CustomerController : Controller
     public IActionResult Orders()
     {
         var userName = User.FindFirstValue(ClaimTypes.Name);
-        var customer = _dbContext.Users.FirstOrDefault(u => u.Login == userName) 
+        var customer = _dbContext.Users.FirstOrDefault(u => u.UserName == userName) 
                        ?? throw new Exception("User not found");
         var roleName = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role && c.Value == "Customer")?.Value 
                        ?? throw new Exception("Role not found");

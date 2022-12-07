@@ -8,7 +8,7 @@ public class User
     public int Id { get; set; }
     [Required]
     [MaxLength(64)]
-    public string Login { get; set; } = default!;
+    public string UserName { get; set; } = default!;
     [Required]
     [MaxLength(32)]
     public string Password { get; set; } = default!;
