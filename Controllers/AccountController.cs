@@ -1,5 +1,4 @@
-﻿using learning_aspnetcore_mvc_users_and_logins.DataAccess;
-using learning_aspnetcore_mvc_users_and_logins.Models;
+﻿using learning_aspnetcore_mvc_users_and_logins.Models;
 using learning_aspnetcore_mvc_users_and_logins.Services;
 using Microsoft.AspNetCore.Mvc;
 
