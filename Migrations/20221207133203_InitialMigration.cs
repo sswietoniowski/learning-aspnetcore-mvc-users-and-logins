@@ -18,10 +18,10 @@ namespace learningaspnetcoremvcusersandlogins.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Login = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
                     Salt = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<int>(type: "int", nullable: false)
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,11 +52,11 @@ namespace learningaspnetcoremvcusersandlogins.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "UserName", "Password", "Role", "Salt" },
+                columns: new[] { "Id", "Password", "Role", "Salt", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "jkowalski", "ABC", 0, "DEF" },
-                    { 2, "anowak", "ABC", 1, "DEF" }
+                    { 1, "ABC", "Customer", "DEF", "jdoe" },
+                    { 2, "ABC", "Employee", "DEF", "afox" }
                 });
 
             migrationBuilder.InsertData(

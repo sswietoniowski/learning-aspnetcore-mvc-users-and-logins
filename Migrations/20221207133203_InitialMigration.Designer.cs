@@ -11,7 +11,7 @@ using learning_aspnetcore_mvc_users_and_logins.DataAccess;
 namespace learningaspnetcoremvcusersandlogins.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221206115859_InitialMigration")]
+    [Migration("20221207133203_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -80,22 +80,23 @@ namespace learningaspnetcoremvcusersandlogins.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(32)
                         .HasColumnType("nvarchar(32)");
 
-                    b.Property<int>("Role")
-                        .HasColumnType("int");
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Salt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(64)
+                        .HasColumnType("nvarchar(64)");
 
                     b.HasKey("Id");
 
@@ -105,18 +106,18 @@ namespace learningaspnetcoremvcusersandlogins.Migrations
                         new
                         {
                             Id = 1,
-                            Login = "jkowalski",
                             Password = "ABC",
-                            Role = 0,
-                            Salt = "DEF"
+                            Role = "Customer",
+                            Salt = "DEF",
+                            UserName = "jdoe"
                         },
                         new
                         {
                             Id = 2,
-                            Login = "anowak",
                             Password = "ABC",
-                            Role = 1,
-                            Salt = "DEF"
+                            Role = "Employee",
+                            Salt = "DEF",
+                            UserName = "afox"
                         });
                 });
 

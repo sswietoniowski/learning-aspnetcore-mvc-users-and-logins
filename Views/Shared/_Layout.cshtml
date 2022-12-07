@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - learning_aspnetcore_mvc_users_and_logins</title>
+    <title>@ViewData["Title"] - Learning ASP.NET Core MVC - Users & Roles</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/learning_aspnetcore_mvc_users_and_logins.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
@@ -32,6 +31,7 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
@@ -44,7 +44,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - learning_aspnetcore_mvc_users_and_logins - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - By Me :-) - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

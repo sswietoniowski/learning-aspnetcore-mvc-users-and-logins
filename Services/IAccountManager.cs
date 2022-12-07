@@ -7,6 +7,6 @@ public interface IAccountManager
     Task<bool> PasswordSignInAsync(string userName, string password, bool rememberMe);
     Task SignOutAsync();
 
-    Task<bool> IsSignedIn(ClaimsPrincipal userPrincipal);
-    Task<string?> GetUserName(ClaimsPrincipal userPrincipal);
+    bool IsSignedIn(ClaimsPrincipal userPrincipal);
+    string? GetUserName(ClaimsPrincipal userPrincipal);
 }
