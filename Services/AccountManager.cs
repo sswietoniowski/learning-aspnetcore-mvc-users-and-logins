@@ -19,7 +19,7 @@ public class AccountManager : IAccountManager
 
     public async Task<bool> PasswordSignInAsync(string userName, string password, bool rememberMe)
     {
-        // TODO: password should not be stored as a plain text (one of many reasons why we should reinvent the wheel but use Identity Framework instead)
+        // TODO: passwords should not be stored as a plain text (one of many reasons why we should reinvent the wheel but use Identity Framework instead)
 
         var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName && u.Password == password);
 
