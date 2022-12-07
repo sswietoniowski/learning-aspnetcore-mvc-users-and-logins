@@ -18,26 +18,30 @@ builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
 builder.Services.AddScoped<IAccountManager, AccountManager>();
 
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+// More info here: https://learn.microsoft.com/en-us/aspnet/core/security/cookie-sharing?view=aspnetcore-6.0
+//builder.Services.ConfigureApplicationCookie(options =>
+//{
+//    options.Cookie.HttpOnly = true;
+//    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
 
-    options.LoginPath = $"/Account/UserName";
-    options.LogoutPath = $"/Account/Logout";
-    options.AccessDeniedPath = $"/Account/AccessDenied";
-});
+//    options.LoginPath = $"/Account/Login";
+//    options.LogoutPath = $"/Account/Logout";
+//    //options.AccessDeniedPath = $"/Account/AccessDenied";
+//});
 
+// More info here: https://learn.microsoft.com/en-us/aspnet/core/security/authentication/cookie?view=aspnetcore-6.0
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(o =>
     {
         o.Cookie.Name = "__Host-my-app";
         o.Cookie.SameSite = SameSiteMode.Strict;
-        o.Events.OnRedirectToLogin = (context) =>
-        {
-            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-            return Task.CompletedTask;
-        };
+        o.LoginPath = "/Account/Login";
+        o.LogoutPath = "/Account/Logout";
+        //o.Events.OnRedirectToLogin = (context) =>
+        //{
+        //    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+        //    return Task.CompletedTask;
+        //};
     });
 
 builder.Services.AddControllersWithViews();
