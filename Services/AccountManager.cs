@@ -58,8 +58,30 @@ public class AccountManager : IAccountManager
 
         await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
-    public async Task<string?> GetUserName()
+
+    public async Task<bool> IsSignedIn(ClaimsPrincipal userPrincipal)
     {
-        return await Task.FromResult(_httpContextAccessor.HttpContext?.User?.Identity?.Name);
+        var userName = userPrincipal?.Identity?.Name;
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+        if (user is null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    public async Task<string?> GetUserName(ClaimsPrincipal userPrincipal)
+    {
+        var userName = userPrincipal?.Identity?.Name;
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
+
+        if (user is null)
+        {
+            return null;
+        }
+
+        return user.UserName;
     }
 }
