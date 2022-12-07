@@ -1,5 +1,4 @@
-﻿using learning_aspnetcore_mvc_users_and_logins.Configurations.Options;
-using learning_aspnetcore_mvc_users_and_logins.Entities;
+﻿using learning_aspnetcore_mvc_users_and_logins.Entities;
 using learning_aspnetcore_mvc_users_and_logins.Services;
 using Microsoft.EntityFrameworkCore;
 
