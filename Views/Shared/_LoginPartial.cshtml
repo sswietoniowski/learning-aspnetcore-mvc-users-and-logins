@@ -6,7 +6,7 @@
     @if (AccountManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <p class="text-dark">Hello @AccountManager.GetUserName(User)!</p>
+            <a id="manage" class="nav-link text-dark" title="Manage">Hello @AccountManager.GetUserName(User)!</a>
         </li>
         <li class="nav-item">
             <form id="logoutForm" class="form-inline" asp-controller="Account" asp-action="Logout" asp-route-returnUrl="@Url.Action("Index", "Home")">

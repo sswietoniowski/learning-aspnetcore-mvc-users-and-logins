@@ -30,10 +30,9 @@ public class CustomerController : Controller
         var orders = _dbContext.Orders
             .Where(o => o.UserId == customer.Id)
             .Include(o => o.User)
-            .ThenInclude(u => u.Role)
             .ToList()
             .Select(
-                o => new OrderVm
+                o => new OrderVM
                 {
                     ProductName = o.Product,
                     Quantity = o.Quantity,

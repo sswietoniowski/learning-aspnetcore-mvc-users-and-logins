@@ -32,7 +32,7 @@ public class AccountManager : IAccountManager
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.UserName),
-            new Claim("role", user.Role.ToString())
+            new Claim(ClaimTypes.Role, user.Role.ToString())
         };
 
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
