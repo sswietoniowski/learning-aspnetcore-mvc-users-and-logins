@@ -13,12 +13,16 @@ public class AccountController : Controller
         _accountManager = accountManager ?? throw new ArgumentNullException(nameof(accountManager));
     }
 
-    public IActionResult Login()
+    public IActionResult Login(string? returnUrl = null)
     {
+        returnUrl ??= Url.Content("~/");
+        this.ViewData["ReturnUrl"] = returnUrl;
+        
         return View();
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Login(LoginVm loginVm)
     {
         if (!ModelState.IsValid)
@@ -32,7 +36,11 @@ public class AccountController : Controller
             return View(loginVm);
         }
 
-        return RedirectToAction("Index", "Home");
+        var returnUrl = HttpContext.Request.Query["returnUrl"];
+        if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            return Redirect(returnUrl!);
+        else
+            return RedirectToAction("Index", "Home");
     }
 
     public async Task<IActionResult> Logout()
