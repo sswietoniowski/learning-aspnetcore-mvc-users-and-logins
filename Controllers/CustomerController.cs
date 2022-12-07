@@ -33,7 +33,7 @@ public class CustomerController : Controller
             .ThenInclude(u => u.Role)
             .ToList()
             .Select(
-                o => new OrderVM
+                o => new OrderVm
                 {
                     ProductName = o.Product,
                     Quantity = o.Quantity,

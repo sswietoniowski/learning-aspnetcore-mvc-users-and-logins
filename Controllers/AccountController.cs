@@ -1,21 +1,45 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using learning_aspnetcore_mvc_users_and_logins.DataAccess;
+using learning_aspnetcore_mvc_users_and_logins.Models;
+using learning_aspnetcore_mvc_users_and_logins.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace learning_aspnetcore_mvc_users_and_logins.Controllers;
 
 public class AccountController : Controller
 {
+    private readonly IAccountManager _accountManager;
+
+    public AccountController(IAccountManager accountManager)
+    {
+        _accountManager = accountManager ?? throw new ArgumentNullException(nameof(accountManager));
+    }
+
     public IActionResult Login()
     {
         return View();
     }
 
-    public IActionResult Logout()
+    [HttpPost]
+    public async Task<IActionResult> Login(LoginVm loginVm)
     {
-        return View();
+        if (!ModelState.IsValid)
+        {
+            return View(loginVm);
+        }
+
+        if (!await _accountManager.PasswordSignInAsync(loginVm.UserName, loginVm.Password, loginVm.RememberMe))
+        {
+            ModelState.AddModelError(string.Empty, "Invalid login attempt");
+            return View(loginVm);
+        }
+
+        return RedirectToAction("Index", "Home");
     }
 
-    public IActionResult AccessDenied()
+    public async Task<IActionResult> Logout()
     {
-        return View();
+        await _accountManager.SignOutAsync();
+
+        return RedirectToAction("Index", "Home");
     }
 }

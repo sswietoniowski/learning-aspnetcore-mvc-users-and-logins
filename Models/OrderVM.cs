@@ -1,6 +1,6 @@
 ﻿namespace learning_aspnetcore_mvc_users_and_logins.Models;
 
-public class OrderVM
+public class OrderVm
 {
     public string ProductName { get; set; } = default!;
     public int Quantity { get; set; }
