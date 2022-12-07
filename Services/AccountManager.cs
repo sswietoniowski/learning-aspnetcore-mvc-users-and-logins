@@ -58,4 +58,8 @@ public class AccountManager : IAccountManager
 
         await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
+    public async Task<string?> GetUserName()
+    {
+        return await Task.FromResult(_httpContextAccessor.HttpContext?.User?.Identity?.Name);
+    }
 }

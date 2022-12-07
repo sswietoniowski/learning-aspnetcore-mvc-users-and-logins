@@ -1,5 +1,6 @@
 using learning_aspnetcore_mvc_users_and_logins.DataAccess;
 using learning_aspnetcore_mvc_users_and_logins.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,18 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = $"/Account/Logout";
     options.AccessDeniedPath = $"/Account/AccessDenied";
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(o =>
+    {
+        o.Cookie.Name = "__Host-my-app";
+        o.Cookie.SameSite = SameSiteMode.Strict;
+        o.Events.OnRedirectToLogin = (context) =>
+        {
+            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+            return Task.CompletedTask;
+        };
+    });
 
 builder.Services.AddControllersWithViews();
 

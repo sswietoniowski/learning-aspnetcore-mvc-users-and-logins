@@ -4,4 +4,5 @@ public interface IAccountManager
 {
     Task<bool> PasswordSignInAsync(string userName, string password, bool rememberMe);
     Task SignOutAsync();
+    Task<string?> GetUserName();
 }
