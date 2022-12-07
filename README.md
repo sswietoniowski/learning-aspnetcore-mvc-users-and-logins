@@ -10,3 +10,5 @@ Please remember that to start this app, you have to:
 - to login in as a cumstomer you have to use username "jdoe" and password "P@ssw0rd".
 
 More information about authentication/authorization in ASP.NET Core MVC can be found here: [ASP.NET Core Authentication and Authorization Tutorials](https://youtube.com/playlist?list=PLOeFnOV9YBa4yaz-uIi5T4ZW3QQGHJQXi).
+
+If you would need some random hash, check out [this](https://onlinehashtools.com/generate-random-sha256-hash) website.
