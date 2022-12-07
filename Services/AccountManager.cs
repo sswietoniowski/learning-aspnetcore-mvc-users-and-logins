@@ -10,20 +10,27 @@ public class AccountManager : IAccountManager
 {
     private readonly AppDbContext _context;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IPasswordHasher _passwordHasher;
 
-    public AccountManager(AppDbContext context, IHttpContextAccessor httpContextAccessor)
+    public AccountManager(AppDbContext context, IHttpContextAccessor httpContextAccessor, IPasswordHasher passwordHasher)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
+        _passwordHasher = passwordHasher;
     }
 
     public async Task<bool> PasswordSignInAsync(string userName, string password, bool rememberMe)
     {
-        // TODO: passwords should not be stored as a plain text (one of many reasons why we should reinvent the wheel but use Identity Framework instead)
-
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName && u.Password == password);
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserName == userName);
 
         if (user is null)
+        {
+            return false;
+        }
+
+        var passwordHash = _passwordHasher.HashPassword(password, user.PasswordSalt);
+
+        if (passwordHash != user.PasswordHash)
         {
             return false;
         }
@@ -38,7 +45,7 @@ public class AccountManager : IAccountManager
         var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
         var principal = new ClaimsPrincipal(identity);
 
-        if (_httpContextAccessor?.HttpContext is null)
+        if (_httpContextAccessor.HttpContext is null)
         {
             throw new InvalidOperationException("HttpContext is null");
         }
@@ -51,7 +58,7 @@ public class AccountManager : IAccountManager
 
     public async Task SignOutAsync()
     {
-        if (_httpContextAccessor?.HttpContext is null)
+        if (_httpContextAccessor.HttpContext is null)
         {
             throw new InvalidOperationException("HttpContext is null");
         }
@@ -59,7 +66,7 @@ public class AccountManager : IAccountManager
         await _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
     }
 
-    public bool IsSignedIn(ClaimsPrincipal userPrincipal)
+    public bool IsSignedIn(ClaimsPrincipal? userPrincipal)
     {
         var userName = userPrincipal?.Identity?.Name;
         var user = _context.Users.FirstOrDefaultAsync(u => u.UserName == userName).Result;

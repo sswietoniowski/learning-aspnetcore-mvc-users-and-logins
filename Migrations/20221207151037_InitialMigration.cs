@@ -19,8 +19,8 @@ namespace learningaspnetcoremvcusersandlogins.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(64)", maxLength: 64, nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(32)", maxLength: 32, nullable: false),
-                    Salt = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
+                    PasswordSalt = table.Column<string>(type: "nvarchar(512)", maxLength: 512, nullable: false),
                     Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -52,11 +52,11 @@ namespace learningaspnetcoremvcusersandlogins.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Password", "Role", "Salt", "UserName" },
+                columns: new[] { "Id", "PasswordHash", "PasswordSalt", "Role", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "ABC", "Customer", "DEF", "jdoe" },
-                    { 2, "ABC", "Employee", "DEF", "afox" }
+                    { 1, "RQpV1PiU2EFqV3UbdkOcSBUYoHxcnGQN2+1GQF5/OCY=", "f7/Oykm9xyJpl5e1iZEHog==", "Customer", "jdoe" },
+                    { 2, "0SfNgIl6NqsCSLVJaKJnU20wZ+efjl3gi14mIH7VQmc=", "3TrBaABPseX0YjxXw4LN9A==", "Employee", "afox" }
                 });
 
             migrationBuilder.InsertData(

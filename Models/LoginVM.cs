@@ -8,6 +8,7 @@ public class LoginVM
     [Required]
     public string UserName { get; set; } = default!;
     [Required]
+    [MaxLength(32)]
     [DataType(DataType.Password)]
     public string Password { get; set; } = default!;
 

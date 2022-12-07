@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>learning_aspnetcore_mvc_users_and_logins</RootNamespace>
+    <UserSecretsId>f91c02bb-c26a-4329-8451-04657d6a9aa9</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

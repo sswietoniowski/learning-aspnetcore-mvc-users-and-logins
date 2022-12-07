@@ -1,15 +1,20 @@
-﻿using learning_aspnetcore_mvc_users_and_logins.Entities;
+﻿using learning_aspnetcore_mvc_users_and_logins.Configurations.Options;
+using learning_aspnetcore_mvc_users_and_logins.Entities;
+using learning_aspnetcore_mvc_users_and_logins.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace learning_aspnetcore_mvc_users_and_logins.DataAccess;
 
 public class AppDbContext : DbContext
 {
+    private readonly IPasswordHasher _passwordHasher;
+
     public DbSet<User> Users => Set<User>();
     public DbSet<Order> Orders => Set<Order>();
 
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options, IPasswordHasher? passwordHasher) : base(options)
     {
+        _passwordHasher = passwordHasher ?? new PasswordHasher();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -24,21 +29,24 @@ public class AppDbContext : DbContext
             .Property(u => u.Role)
             .HasConversion<string>();
 
+        var salt1 = _passwordHasher.GenerateSalt();
+        var salt2 = _passwordHasher.GenerateSalt();
+
         modelBuilder.Entity<User>().HasData(
             new User
             {
                 Id = 1,
                 UserName = "jdoe",
-                Password = "ABC",
-                Salt = "DEF",
+                PasswordHash = _passwordHasher.HashPassword("P@ssw0rd", salt1),
+                PasswordSalt = salt1,
                 Role = Role.Customer
             },
             new User
             {
                 Id = 2,
                 UserName = "afox",
-                Password = "ABC",
-                Salt = "DEF",
+                PasswordHash = _passwordHasher.HashPassword("P@ssw0rd", salt2),
+                PasswordSalt = salt2,
                 Role = Role.Employee
             });
 

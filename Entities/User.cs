@@ -10,10 +10,11 @@ public class User
     [MaxLength(64)]
     public string UserName { get; set; } = default!;
     [Required]
-    [MaxLength(32)]
-    public string Password { get; set; } = default!;
+    [MaxLength(512)]
+    public string PasswordHash { get; set; } = default!;
     [Required]
-    public string Salt { get; set; } = default!;
+    [MaxLength(512)]
+    public string PasswordSalt { get; set; } = default!;
     [Required]
     public Role Role { get; set; }
 }

@@ -1,3 +1,4 @@
+using learning_aspnetcore_mvc_users_and_logins.Configurations.Options;
 using learning_aspnetcore_mvc_users_and_logins.DataAccess;
 using learning_aspnetcore_mvc_users_and_logins.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -10,6 +11,11 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddHttpContextAccessor();
+
+builder.Services.Configure<PasswordHasherOptions>(
+    builder.Configuration.GetSection("PasswordHasherOptions"));
+builder.Services.AddSingleton<IPasswordHasher, PasswordHasher>();
+
 builder.Services.AddScoped<IAccountManager, AccountManager>();
 
 builder.Services.ConfigureApplicationCookie(options =>

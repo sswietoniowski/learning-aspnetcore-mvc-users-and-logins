@@ -11,7 +11,7 @@ using learning_aspnetcore_mvc_users_and_logins.DataAccess;
 namespace learningaspnetcoremvcusersandlogins.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20221207133203_InitialMigration")]
+    [Migration("20221207151037_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -80,16 +80,17 @@ namespace learningaspnetcoremvcusersandlogins.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(32)
-                        .HasColumnType("nvarchar(32)");
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
+
+                    b.Property<string>("PasswordSalt")
+                        .IsRequired()
+                        .HasMaxLength(512)
+                        .HasColumnType("nvarchar(512)");
 
                     b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Salt")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -106,17 +107,17 @@ namespace learningaspnetcoremvcusersandlogins.Migrations
                         new
                         {
                             Id = 1,
-                            Password = "ABC",
+                            PasswordHash = "RQpV1PiU2EFqV3UbdkOcSBUYoHxcnGQN2+1GQF5/OCY=",
+                            PasswordSalt = "f7/Oykm9xyJpl5e1iZEHog==",
                             Role = "Customer",
-                            Salt = "DEF",
                             UserName = "jdoe"
                         },
                         new
                         {
                             Id = 2,
-                            Password = "ABC",
+                            PasswordHash = "0SfNgIl6NqsCSLVJaKJnU20wZ+efjl3gi14mIH7VQmc=",
+                            PasswordSalt = "3TrBaABPseX0YjxXw4LN9A==",
                             Role = "Employee",
-                            Salt = "DEF",
                             UserName = "afox"
                         });
                 });
