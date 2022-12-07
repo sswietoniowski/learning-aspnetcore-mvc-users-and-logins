@@ -6,7 +6,7 @@ This sample was created for my own use during lectures, so nothing fancy here :-
 
 Please remember that to start this app, you have to:
 
-- because migrations contains users passwords generated with my "pepper" hash, you might need to perform: `Remove-Migration`, `Add-Migration InitialMigration`,
+- because migrations contains users passwords generated with my "pepper" hash, you might need to perform first: `Remove-Migration`, `Add-Migration InitialMigration`,
 - then you can create database by using `Update-Database` (you might need to change the connection string to do that),
 - to login in as a cumstomer you have to use username "jdoe" and password "P@ssw0rd".
 
