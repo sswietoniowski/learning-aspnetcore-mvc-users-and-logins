@@ -16,7 +16,7 @@ public class AccountManager : IAccountManager
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
-        _passwordHasher = passwordHasher;
+        _passwordHasher = passwordHasher ?? throw new ArgumentNullException(nameof(passwordHasher));
     }
 
     public async Task<bool> PasswordSignInAsync(string userName, string password, bool rememberMe)
